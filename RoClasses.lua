@@ -1,8 +1,13 @@
 local classes = {}
 classes.__index = classes
-classes.__call = function(self)
+classes.__call = function(self, args:{}?)
     if not self.__init__ then error("No init defined") end
-    return self.__init__(self)
+    local newobj = {}
+    print(self)
+    for i,v in self do
+        newobj[i] = v
+    end
+    return self.__init__(newobj, args)
 end
 classes.__tostring = function(self)
     if not self.__tostring__ then error("No tostring defined") end
