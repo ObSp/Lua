@@ -1,40 +1,47 @@
 local class = require("luaClass/luaClasses")
 
-local food = class({
+local shoppinglist = class({
+    __new__ = function(self)
+        print("__new__ was called")
+    end,
+
     __init__ = function(self, args)
-        self.FoodType = args.FoodType
+        for listitem, amount in args do
+            self[listitem] = amount
+        end
+    end,
+
+    __add__ = function(self,other)
+        for i,v in other do
+            if type(v) ~= "number" then continue end
+            if self[i] then
+                self[i] += v
+            else
+                self[i] = v
+            end
+        end
         return self
     end,
 
     __str__ = function(self)
-        
+        local list = ""
+        for listitem, amount in self do
+            if type(amount) == "function" then continue end
+            list ..= `{listitem}: {amount}, `
+        end
+        return list
     end,
 
-    PrintType = function(self)
-        print(self.FoodType)
-    end,
-
-    FoodType = "",
-})
-
-local animal = class({
-    __init__ = function(self, args)
-        self.AnimalType = args.AnimalType
-        self.Damage = args.Damage
-        self.Noise = args.Noise
+    RemoveItem = function(self, args)
+        self[args.Item] = nil
         return self
-    end,
-
-    __str__ = function(self)
-        return self.AnimalType
-    end,
-    
-    MakeNoise = function(self)
-        print(self.Noise)
     end
+
 })
 
-local beef = food({FoodType = "Beef"})
-local cow = animal({AnimalType = "Cow", Damage = 1, Noise = "MOOOOOOO"})
-
-print(cow)
+local tuesdayshopping = shoppinglist({Eggs = 5, Milk = 4, OrangeJuice = 1, Yogurt = 5})
+local fridayshopping = shoppinglist({Yogurt = 10, Eggs = 12, Milk = 6, OrangeJuice = 4, Baguette = 1000000})
+local weekshopping = tuesdayshopping+fridayshopping
+print(weekshopping)
+weekshopping:RemoveItem({Item = "Yogurt"})
+print(weekshopping)
