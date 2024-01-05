@@ -6,6 +6,10 @@ local food = class({
         return self
     end,
 
+    __str__ = function(self)
+        
+    end,
+
     PrintType = function(self)
         print(self.FoodType)
     end,
@@ -20,6 +24,10 @@ local animal = class({
         self.Noise = args.Noise
         return self
     end,
+
+    __str__ = function(self)
+        return self.AnimalType
+    end,
     
     MakeNoise = function(self)
         print(self.Noise)
@@ -28,5 +36,3 @@ local animal = class({
 
 local beef = food({FoodType = "Beef"})
 local cow = animal({AnimalType = "Cow", Damage = 1, Noise = "MOOOOOOO"})
-beef:PrintType()
-cow:MakeNoise()
