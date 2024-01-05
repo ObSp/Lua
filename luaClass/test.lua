@@ -36,3 +36,5 @@ local animal = class({
 
 local beef = food({FoodType = "Beef"})
 local cow = animal({AnimalType = "Cow", Damage = 1, Noise = "MOOOOOOO"})
+
+print(cow)

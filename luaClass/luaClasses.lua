@@ -10,12 +10,14 @@ end
 
 local classes = {}
 classes.__index = classes
+
 classes.__call = function(self, args) -- instantiate new "class" object
     local obj = setmetatable({}, self)
     obj = DeepCopy(obj, self._methods)
     if self.__init__ then self.__init__(obj, args) end
     return obj
 end
+
 
 return function(args) -- Create a new class with functions and properties
     local newclass = setmetatable({}, classes)
@@ -29,7 +31,10 @@ return function(args) -- Create a new class with functions and properties
         newclass[i] = v
     end
     newclass.__tostring = function(self)
-        return self.__str__(self)
+        if self.__str__ then
+            return self.__str__(self)
+        end
+        return tostring({self})
     end
     return newclass
 end
