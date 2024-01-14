@@ -1,11 +1,10 @@
-local classes = require("classes") -- path to your module
+local classes = require("luaClass/classes") -- path to your module
 
 local person = classes({
 
     __init__ = function(self, name, age) -- create a new init function
         self.Name = name -- set the name
         self.age = age -- set the age to the parameter
-        return self -- return the self table
     end,
 
     __str__ = function(self) -- specify the __str__ function, which controls the object's tostring() behavior
@@ -14,7 +13,6 @@ local person = classes({
 
     SetAge = function(self, new_age) -- object method to set the person's age
         self.age = new_age -- set the new age
-        return self -- self must ALWAYS be returned, otherwise changes won't apply outside of this function
     end
 
 }) -- define the functions inside a table
