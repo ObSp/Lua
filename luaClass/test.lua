@@ -10,7 +10,7 @@ local Bird = class({
 
     printstuff = function(self)
         print(self.Name)
-    end})
+    end
+})
 
-local Hummingbird = Bird({"Hummingbird", true})
-local Penguin = Bird({"Penguin", false})
+local test = Bird()
