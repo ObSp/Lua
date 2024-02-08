@@ -19,6 +19,11 @@ classes.__index = classes
 classes.__call = function(self, args) -- instantiate new object in a class
     local obj = setmetatable({}, self)
     obj = DeepCopy(obj, self._methods)
+
+    for var,val in self._instancevars do
+        obj[var] = val
+    end
+
     if self.__new__ then self.__new__(obj, args) end
     if self.__init__ then self.__init__(obj, args) end
     return obj
@@ -33,9 +38,13 @@ return function(args) -- Create a new class with functions and properties
     local newclass = setmetatable({}, classes)
     newclass.__index = newclass
     newclass._methods = {}
+    newclass._instancevars = {}
     for i,v in args do
         if type(v) == "function" and not table.find(reserved_names, i) then
             newclass._methods[i] = v
+            continue
+        elseif type(v) ~= "function" then
+            newclass._instancevars[i] = v
             continue
         end
         newclass[i] = v
