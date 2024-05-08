@@ -157,3 +157,13 @@ do
         return setmetatable(t1, Lmeta)
     end
 end
+
+local x = {}
+
+function x:Do(self)
+    Llen(self)
+end
+
+local y = Lsetmeta({}, x)
+
+y:Do()
