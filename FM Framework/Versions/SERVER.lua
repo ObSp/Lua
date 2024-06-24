@@ -1,12 +1,10 @@
 --[=[ FM FRAMEWORK SERVER
-- The module for anything FM server-related. 
+- The module for anything FM server-related.
 ]=]
-
-type n = number
 
 
 export type Service = {
-    init: ()->()
+    start: ()->()
 }
 
 --TODO: change when in studio
